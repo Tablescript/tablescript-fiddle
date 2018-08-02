@@ -19,6 +19,29 @@ const context = initializeContext(
 );
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      script: "print('I have a ham radio')\n"
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({
+      script: event.target.value
+    });
+  }
+
+  handleSubmit(event) {
+    runScript(context, this.state.script, 'fiddle').then(function(result) {
+      alert(result.asNativeString(context));
+    });
+    event.preventDefault();
+  }
+
   render() {
     return (
       <div className="App">
@@ -29,8 +52,17 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <form onSubmit={ this.handleSubmit }>
+          <label>
+            Script:
+            <textarea name="script" value={ this.state.script } onChange={ this.handleChange }></textarea>
+          </label>
+          <input type="submit" value="Run" />
+        </form>
         <button onClick={function() {
-          alert('click');
+          runScript(context, 'print("I have a ham radio")', 'nothing').then(function(result) {
+            alert(result.asNativeString(context));
+          });
         }}>Run</button>
       </div>
     );
