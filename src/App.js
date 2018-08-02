@@ -9,24 +9,40 @@ import {
 import logo from './logo.svg';
 import './App.css';
 
-const interpreterOptions = defaultInterpreterOptions({ tableValidation: true });
-
-const context = initializeContext(
-  defaultInitializeScope,
-  [],
-  interpreterOptions,
-  defaultValueFactory,
-);
+let context;
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      script: "print('I have a ham radio')\n"
+      script: "print('I have a ham radio')\n",
+      output: [],
+      result: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePrint = this.handlePrint.bind(this);
+    this.setResult = this.setResult.bind(this);
+    this.onClear = this.onClear.bind(this);
+
+    const interpreterOptions = defaultInterpreterOptions({ tableValidation: true });
+    interpreterOptions.output.print = this.handlePrint;
+
+    context = initializeContext(
+      defaultInitializeScope,
+      [],
+      interpreterOptions,
+      defaultValueFactory,
+    );
+  }
+
+  onClear(event) {
+    this.setState({
+      ...this.state,
+      result: '',
+      output: []
+    });
   }
 
   handleChange(event) {
@@ -35,11 +51,26 @@ class App extends Component {
     });
   }
 
-  handleSubmit(event) {
-    runScript(context, this.state.script, 'fiddle').then(function(result) {
-      alert(result.asNativeString(context));
+  setResult(result) {
+    this.setState({
+      ...this.state,
+      result: result.asNativeString(context),
     });
+  }
+
+  handleSubmit(event) {
+    runScript(context, this.state.script, 'fiddle').then(this.setResult);
     event.preventDefault();
+  }
+
+  handlePrint(s) {
+    this.setState({
+      ...this.state,
+      output: [
+        ...this.state.output,
+        s,
+      ],
+    });
   }
 
   render() {
@@ -49,9 +80,13 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+        <p>
+          Result: { this.state.result }
         </p>
+        <p>
+          Output: { this.state.output.join("\n") }
+        </p>
+        <button onClick={ this.onClear }>Clear</button>
         <form onSubmit={ this.handleSubmit }>
           <label>
             Script:
@@ -59,11 +94,6 @@ class App extends Component {
           </label>
           <input type="submit" value="Run" />
         </form>
-        <button onClick={function() {
-          runScript(context, 'print("I have a ham radio")', 'nothing').then(function(result) {
-            alert(result.asNativeString(context));
-          });
-        }}>Run</button>
       </div>
     );
   }
