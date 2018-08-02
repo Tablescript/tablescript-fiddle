@@ -1,6 +1,22 @@
 import React, { Component } from 'react';
+import {
+  runScript,
+  initializeContext,
+  defaultInitializeScope,
+  defaultInterpreterOptions,
+  defaultValueFactory
+} from 'tablescript.js';
 import logo from './logo.svg';
 import './App.css';
+
+const interpreterOptions = defaultInterpreterOptions({ tableValidation: true });
+
+const context = initializeContext(
+  defaultInitializeScope,
+  [],
+  interpreterOptions,
+  defaultValueFactory,
+);
 
 class App extends Component {
   render() {
@@ -13,6 +29,9 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <button onClick={function() {
+          alert('click');
+        }}>Run</button>
       </div>
     );
   }
