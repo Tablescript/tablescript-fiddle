@@ -1,7 +1,7 @@
 import React from 'react';
 
-export const Output = props => {
-  const outputLines = props.output.map((l, i) => <li key={ i }>{ l }</li>);
+const Output = ({ output }) => {
+  const outputLines = output.map((l, i) => <li key={ i }>{ l }</li>);
 
   return (
     <div>
@@ -12,3 +12,5 @@ export const Output = props => {
     </div>
   );
 };
+
+export default Output;

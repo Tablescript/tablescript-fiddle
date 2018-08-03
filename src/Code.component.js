@@ -1,14 +1,16 @@
 import React from 'react';
-import { Editor } from './Editor.component';
+import Editor from './Editor.component';
 
-export const Code = props => (
+const Code = ({ onSubmit, script, onChange }) => (
   <div>
-    <form onSubmit={ props.onSubmit }>
+    <form onSubmit={ onSubmit }>
       <label>
         Script:
-        <Editor script={ props.script } onChange={ props.onChange } />
+        <Editor script={ script } onChange={ onChange } />
       </label>
       <input type="submit" value="Run" />
     </form>
   </div>
 );
+
+export default Code;

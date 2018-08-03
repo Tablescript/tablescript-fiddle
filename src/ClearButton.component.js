@@ -1,5 +1,7 @@
 import React from 'react';
 
-export const ClearButton = props => (
-  <button onClick={ props.onClear }>Clear</button>
+const ClearButton = ({ onClear }) => (
+  <button onClick={ onClear }>Clear</button>
 );
+
+export default ClearButton;

@@ -1,10 +1,12 @@
 import React from 'react';
 
-export const Result = props => (
+const Result = ({ result }) => (
   <div>
     <h2>Result</h2>
     <p>
-      { props.result }
+      { result }
     </p>
   </div>
 );
+
+export default Result;

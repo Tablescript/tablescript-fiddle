@@ -1,5 +1,7 @@
 import React from 'react';
 
-export const Editor = props => (
-  <textarea name="script" value={ props.script } onChange={ props.onChange }></textarea>
+const Editor = ({ script, onChange }) => (
+  <textarea name="script" value={ script } onChange={ onChange }></textarea>
 );
+
+export default Editor;
