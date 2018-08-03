@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { Result } from './Result.component';
+import { Output } from './Output.component';
+import { ClearButton } from './ClearButton.component';
+import { Code } from './Code.component';
 import {
   runScript,
   initializeContext,
@@ -9,50 +13,6 @@ import {
 import logo from './logo.svg';
 import './App.css';
 
-let context;
-
-const Result = props => (
-  <div>
-    <h2>Result</h2>
-    <p>
-      { props.result }
-    </p>
-  </div>
-);
-
-const Output = props => {
-  const outputLines = props.output.map((l, i) => <li key={ i }>{ l }</li>);
-
-  return (
-    <div>
-      <h2>Output</h2>
-      <ul>
-        { outputLines }
-      </ul>
-    </div>
-  );
-};
-
-const ClearButton = props => (
-  <button onClick={ props.onClear }>Clear</button>
-);
-
-const Code = props => (
-  <div>
-    <form onSubmit={ props.onSubmit }>
-      <label>
-        Script:
-        <Editor script={ props.script } onChange={ props.onChange } />
-      </label>
-      <input type="submit" value="Run" />
-    </form>
-  </div>
-);
-
-const Editor = props => (
-  <textarea name="script" value={ props.script } onChange={ props.onChange }></textarea>
-);
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -61,22 +21,6 @@ class App extends Component {
       output: [],
       result: '',
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePrint = this.handlePrint.bind(this);
-    this.setResult = this.setResult.bind(this);
-    this.onClear = this.onClear.bind(this);
-
-    const interpreterOptions = defaultInterpreterOptions({ tableValidation: true });
-    interpreterOptions.output.print = this.handlePrint;
-
-    context = initializeContext(
-      defaultInitializeScope,
-      [],
-      interpreterOptions,
-      defaultValueFactory,
-    );
   }
 
   onClear(event) {
@@ -93,15 +37,27 @@ class App extends Component {
     });
   }
 
-  setResult(result) {
-    this.setState({
-      ...this.state,
-      result: result.asNativeString(context),
-    });
+  setResult(context) {
+    return function(result) {
+      this.setState({
+        ...this.state,
+        result: result.asNativeString(context),
+      });
+    };
   }
 
   handleSubmit(event) {
-    runScript(context, this.state.script, 'fiddle').then(this.setResult);
+    const interpreterOptions = defaultInterpreterOptions({ tableValidation: true });
+    interpreterOptions.output.print = this.handlePrint.bind(this);
+
+    const context = initializeContext(
+      defaultInitializeScope,
+      [],
+      interpreterOptions,
+      defaultValueFactory,
+    );
+
+    runScript(context, this.state.script, 'fiddle').then(this.setResult(context).bind(this));
     event.preventDefault();
   }
 
@@ -124,8 +80,8 @@ class App extends Component {
         </header>
         <Result result={ this.state.result } />
         <Output output={ this.state.output } />
-        <ClearButton onClear={ this.onClear } />
-        <Code script={ this.state.script } onChange={ this.handleChange } onSubmit={ this.handleSubmit } />
+        <ClearButton onClear={ this.onClear.bind(this) } />
+        <Code script={ this.state.script } onChange={ this.handleChange.bind(this) } onSubmit={ this.handleSubmit.bind(this) } />
       </div>
     );
   }
