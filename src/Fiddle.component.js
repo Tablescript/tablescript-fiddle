@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import Result from './Result.component';
-import Output from './Output.component';
-import ClearButton from './ClearButton.component';
 import Code from './Code.component';
+import Output from './Output.component';
 import {
   runScript,
   initializeContext,
@@ -22,29 +20,20 @@ class Fiddle extends Component {
   }
 
   onClear(event) {
-    this.setState({
-      ...this.state,
-      result: '',
-      output: []
-    });
+    this.setState(() => ({ output: [] }));
   }
 
   handleChange(event) {
-    this.setState({
-      script: event.target.value
-    });
+    this.setState({ script: event.target.value });
   }
 
   setResult(context) {
     return function(result) {
-      this.setState({
-        ...this.state,
-        result: result.asNativeString(context),
-      });
+      this.setState(() => ({ result: result.asNativeString(context) }));
     };
   }
 
-  handleSubmit(event) {
+  onRun(event) {
     const interpreterOptions = defaultInterpreterOptions({ tableValidation: true });
     interpreterOptions.output.print = this.handlePrint.bind(this);
 
@@ -55,27 +44,23 @@ class Fiddle extends Component {
       defaultValueFactory,
     );
 
-    runScript(context, this.state.script, 'fiddle').then(this.setResult(context).bind(this));
+    runScript(context, this.state.script, 'fiddle')
+      .then(this.setResult(context).bind(this))
+      .catch(e => {
+        this.setState({ result: e.toString() });
+      });
     event.preventDefault();
   }
 
   handlePrint(s) {
-    this.setState({
-      ...this.state,
-      output: [
-        ...this.state.output,
-        s,
-      ],
-    });
+    this.setState(() => ({ output: [...this.state.output, s] }));
   }
 
   render() {
     return (
-      <div>
-        <Result result={ this.state.result } />
-        <Output output={ this.state.output } />
-        <ClearButton onClear={ this.onClear.bind(this) } />
-        <Code script={ this.state.script } onChange={ this.handleChange.bind(this) } onSubmit={ this.handleSubmit.bind(this) } />
+      <div className="flex flex-row helvetica">
+        <Code script={ this.state.script } onChange={ this.handleChange.bind(this) } onRun={ this.onRun.bind(this) } />
+        <Output result={ this.state.result } output={ this.state.output } onClear={ this.onClear.bind(this) } />
       </div>
     );
   }

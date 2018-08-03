@@ -1,13 +1,11 @@
 import React from 'react';
 import Editor from './Editor.component';
 
-const Code = ({ onSubmit, script, onChange }) => (
-  <div>
-    <form onSubmit={ onSubmit }>
-      <label>
-        Script:
-        <Editor script={ script } onChange={ onChange } />
-      </label>
+const Code = ({ onRun, script, onChange }) => (
+  <div className="w-50 ph2">
+    <h2>Script</h2>
+    <form onSubmit={ onRun }>
+      <Editor script={ script } onChange={ onChange } />
       <input type="submit" value="Run" />
     </form>
   </div>
