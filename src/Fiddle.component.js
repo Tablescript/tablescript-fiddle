@@ -19,7 +19,7 @@ class Fiddle extends Component {
     };
   }
 
-  onClear(event) {
+  onClear() {
     this.setState(() => ({ output: [] }));
   }
 
@@ -33,7 +33,11 @@ class Fiddle extends Component {
     };
   }
 
-  onRun(event) {
+  onRun(clear) {
+    if (clear) {
+      this.onClear();
+    }
+
     const interpreterOptions = defaultInterpreterOptions({ tableValidation: true });
     interpreterOptions.output.print = this.handlePrint.bind(this);
 
@@ -49,7 +53,6 @@ class Fiddle extends Component {
       .catch(e => {
         this.setState({ result: e.toString() });
       });
-    event.preventDefault();
   }
 
   handlePrint(s) {
@@ -59,7 +62,11 @@ class Fiddle extends Component {
   render() {
     return (
       <div className="flex flex-row helvetica">
-        <Code script={ this.state.script } onChange={ this.handleChange.bind(this) } onRun={ this.onRun.bind(this) } />
+        <Code
+          script={ this.state.script }
+          onChange={ this.handleChange.bind(this) }
+          onRun={ this.onRun.bind(this) }
+        />
         <Output result={ this.state.result } output={ this.state.output } onClear={ this.onClear.bind(this) } />
       </div>
     );

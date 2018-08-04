@@ -6,12 +6,12 @@ import 'brace/theme/kuroir';
 
 const Editor = ({ script, onChange }) => (
   <AceEditor
-    className="w-100"
+    className="w-100 h5 mb1"
     width=""
+    height=""
     mode="javascript"
     theme="kuroir"
     name="blah2"
-//    onLoad={this.onLoad}
     onChange={ onChange }
     fontSize={14}
     showPrintMargin={true}
@@ -19,9 +19,6 @@ const Editor = ({ script, onChange }) => (
     highlightActiveLine={true}
     value={ script }
     setOptions={{
-      //enableBasicAutocompletion: false,
-      //enableLiveAutocompletion: false,
-      //enableSnippets: false,
       showLineNumbers: true,
       tabSize: 2,
     }}
