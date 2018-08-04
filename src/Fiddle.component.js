@@ -23,8 +23,8 @@ class Fiddle extends Component {
     this.setState(() => ({ output: [] }));
   }
 
-  handleChange(event) {
-    this.setState({ script: event.target.value });
+  handleChange(script) {
+    this.setState({ script: script });
   }
 
   setResult(context) {
