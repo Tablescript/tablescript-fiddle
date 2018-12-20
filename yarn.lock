@@ -6502,9 +6502,10 @@ table@^4.0.1:
     slice-ansi "1.0.0"
     string-width "^2.1.1"
 
-tablescript.js@^0.2.0:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/tablescript.js/-/tablescript.js-0.2.1.tgz#87464110c2d5d238bc5edb9efe27df5e6e3ab7fd"
+tablescript.js@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/tablescript.js/-/tablescript.js-0.3.2.tgz#6613ed4167a884e58f5fd5345942c736fdc1acc1"
+  integrity sha512-XaW7gyre3MAIaMar7JtSeLCP3sMpePqnHQt4Ir70+9HU4ZDomFZx2woBnhFzVOlYi9ezZvXh5D5tR8WfWyVUSQ==
   dependencies:
     commander "^2.11.0"
     pkginfo "^0.4.1"
