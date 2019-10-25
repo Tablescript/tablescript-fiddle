@@ -1,26 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'tachyons/css/tachyons.css';
+import Fiddle from './Fiddle';
+import { version } from '../package.json';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <div className="flex flex-column">
+    <header className="pa2 helvetica">
+      <h1 className="">Tablescript Fiddle</h1>
+      <p>Use this tool to play with the Tablescript language.</p>
+      <p>Eventually, you will be able to save your scripts, but for now just copy/paste into a file on your computer.</p>
+    </header>
+    <Fiddle />
+    <footer>
+      <p className="pa2 f7 helvetica">Tablescript.js Fiddle version v{ version }</p>
+    </footer>
+  </div>
+);
 
 export default App;
