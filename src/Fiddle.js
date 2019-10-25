@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import queryString from 'query-string';
 import Code from './Code';
 import Output from './Output';
 import { initializeTablescript } from 'tablescript.js';
 
 const Fiddle = () => {
-  const [script, setScript] = useState("print('I have a ham radio');\n");
+  const { script: passedScript } = queryString.parse(window.location.search);
+  const [script, setScript] = useState(passedScript || "print('I have a ham radio');\n");
   const [output, setOutput] = useState([]);
   const [result, setResult] = useState('');
 
