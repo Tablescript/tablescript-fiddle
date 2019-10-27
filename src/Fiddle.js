@@ -1,38 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import queryString from 'query-string';
 import Code from './Code';
 import Output from './Output';
+import Options from './Options';
 import { initializeTablescript } from 'tablescript.js';
+
+const createOutputBuffer = () => {
+  let lines = [];
+
+  const clear = () => lines = [];
+
+  const handlePrint = s => lines = [...lines, s];
+
+  const getLines = () => lines;
+
+  return {
+    clear,
+    handlePrint,
+    getLines,
+  };
+};
 
 const Fiddle = () => {
   const { script: passedScript } = queryString.parse(window.location.search);
   const [script, setScript] = useState(passedScript || "print('I have a ham radio');\n");
   const [output, setOutput] = useState([]);
   const [result, setResult] = useState('');
+  const [evaluateCallableResult, setEvaluateCallableResult] = useState(true);
+  const [validateTables, setValidateTables] = useState(true);
 
   const handleClear = () => {
     setOutput([]);
+    setResult('');
   };
 
   const handleChange = (script) => {
     setScript(script);
   };
 
-  const handlePrint = (s) => {
-    setOutput([...output, s]);
-  };
-
-  const tablescript = initializeTablescript({
-    output: handlePrint,
-  });
+  const outputBuffer = useMemo(() => createOutputBuffer(), []);
+  
+  const tablescript = useMemo(() => initializeTablescript({
+    output: outputBuffer.handlePrint,
+    evaluateCallableResult,
+    validateTables,
+  }), [outputBuffer, evaluateCallableResult, validateTables]);
 
   const handleRun = (clear) => {
-    if (clear) {
-      handleClear();
-    }
-
     try {
+      outputBuffer.clear();
       const result = tablescript.runScript(script, 'fiddle');
+      setOutput(clear ? outputBuffer.getLines() : [...output, ...outputBuffer.getLines()]);
       setResult(result.asNativeString());
     } catch (e) {
       setResult(e.toString());
@@ -40,14 +58,24 @@ const Fiddle = () => {
   };
 
   return (
-    <div className="flex flex-row helvetica">
-      <Code
-        script={script}
-        onChange={handleChange}
-        onRun={handleRun}
-      />
-      <Output result={result} output={output} onClear={handleClear} />
-    </div>
+    <>
+      <div className="flex flex-row helvetica">
+        <Options
+          evaluateCallableResult={evaluateCallableResult}
+          validateTables={validateTables}
+          onChangeEvaluateCallableResult={setEvaluateCallableResult}
+          onChangeValidateTables={setValidateTables}
+        />
+      </div>
+      <div className="flex flex-row helvetica">
+        <Code
+          script={script}
+          onChange={handleChange}
+          onRun={handleRun}
+        />
+        <Output result={result} output={output} onClear={handleClear} />
+      </div>
+    </>
   );
 };
 

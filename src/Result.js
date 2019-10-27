@@ -3,9 +3,9 @@ import React from 'react';
 const Result = ({ result }) => (
   <div>
     <h2>Result</h2>
-    <p>
-      { result }
-    </p>
+    { result.split('\n').map(line => (
+      <p className="mt0 mb0">{line}</p>
+    ))}
   </div>
 );
 

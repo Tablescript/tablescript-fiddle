@@ -1,6 +1,6 @@
 {
   "name": "tablescript-fiddle",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "homepage": "/fiddle",
   "dependencies": {
@@ -10,7 +10,7 @@
     "react-ace": "^8.0.0",
     "react-dom": "^16.11.0",
     "react-scripts": "3.2.0",
-    "tablescript.js": "^0.5.2",
+    "tablescript.js": "^0.6.2",
     "tachyons": "^4.11.1"
   },
   "scripts": {

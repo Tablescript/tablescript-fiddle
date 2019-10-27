@@ -13,7 +13,7 @@ const Editor = ({ script, onChange }) => (
     theme="kuroir"
     name="blah2"
     onChange={ onChange }
-    fontSize={14}
+    fontSize={12}
     showPrintMargin={true}
     showGutter={true}
     highlightActiveLine={true}
@@ -21,9 +21,6 @@ const Editor = ({ script, onChange }) => (
     setOptions={{
       showLineNumbers: true,
       tabSize: 2,
-    }}
-    editorProps={{
-      $blockScrolling: Infinity
     }}
   />
 );

@@ -7,7 +7,7 @@ const Console = ({ output, onClear }) => {
   return (
     <div>
       <h2>Output</h2>
-      <textarea className="w-100 h5 code" value={ allOutput } />
+      <textarea className="w-100 h5 code" value={ allOutput } readOnly />
       <ClearButton onClear={ onClear } />
     </div>
   );
