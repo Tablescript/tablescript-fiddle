@@ -7074,11 +7074,6 @@ pkg-up@2.0.0:
   dependencies:
     find-up "^2.1.0"
 
-pkginfo@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/pkginfo/-/pkginfo-0.4.1.tgz#b5418ef0439de5425fc4995042dced14fb2a84ff"
-  integrity sha1-tUGO8EOd5UJfxJlQQtztFPsqhP8=
-
 pn@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
@@ -9287,14 +9282,13 @@ table@^5.2.3:
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
 
-tablescript.js@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/tablescript.js/-/tablescript.js-0.6.2.tgz#db722e8d7cfdc1a45e366fb619a5413b64b3ee04"
-  integrity sha512-trzRpZlsdnVu67/Xe1TnRtFNHAQ8SOZOOsXixv6G/jZTGQKI/4OieLHUbM0gNYAytVY+7CLjOHNZQ2Z+cjA6tQ==
+tablescript.js@^0.6.4:
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/tablescript.js/-/tablescript.js-0.6.4.tgz#4dc53e7b44a1c09e77753bc2257eb32ba659ec00"
+  integrity sha512-TI3aErJfP0gmXq2xFPITRh9nRqRywqAuzshJ3VdPLYsbFxsKy4aWjHx5VCdjaBPSkmni67NGKFY39eKK5Hr4MQ==
   dependencies:
     "@babel/polyfill" "^7.6.0"
     commander "^3.0.2"
-    pkginfo "^0.4.1"
     ramda "^0.26.1"
 
 tachyons@^4.11.1:

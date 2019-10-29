@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import queryString from 'query-string';
+import { version } from '../package.json';
 import Code from './Code';
 import Output from './Output';
 import Options from './Options';
@@ -74,6 +75,13 @@ const Fiddle = () => {
           onRun={handleRun}
         />
         <Output result={result} output={output} onClear={handleClear} />
+      </div>
+      <div className="flex flex-row helvetica">
+        <p className="pa2 f7 helvetica">
+          <a href="https://github.com/Tablescript/tablescript.js">Tablescript.js </a> version v{ tablescript.version }
+          &nbsp;
+          (<a href="https://github.com/Tablescript/tablescript-fiddle">Tablescript.js Fiddle</a> version v{ version })
+        </p>
       </div>
     </>
   );
