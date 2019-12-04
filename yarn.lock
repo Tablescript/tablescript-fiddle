@@ -9282,10 +9282,10 @@ table@^5.2.3:
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
 
-tablescript.js@^0.6.6:
-  version "0.6.6"
-  resolved "https://registry.yarnpkg.com/tablescript.js/-/tablescript.js-0.6.6.tgz#822d97749f63ee2d6304703ad942cfbc369a0255"
-  integrity sha512-Nx5dPJ00+KDz34PSNj2uEMsTjP5WJgbeD7zynLXKxgSKYaRMzbXW3YzoQqrdKDCzd8t+TCUf6LPlojH5kjN8MA==
+tablescript.js@^0.6.8:
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/tablescript.js/-/tablescript.js-0.6.8.tgz#fcd1d275755cae9587c62b32514b7b782d45361a"
+  integrity sha512-z32OtbF/ZyfqmPn7NufQaqUa0gu74vU0z6DtQAP5Lcv9Fzn3Hbx41o/uYz2zKpcoJU0Ww4xtdASPTQDV1UbVxg==
   dependencies:
     "@babel/polyfill" "^7.6.0"
     commander "^3.0.2"
